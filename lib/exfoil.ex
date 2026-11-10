@@ -73,13 +73,15 @@ defmodule Exfoil do
           default_module_name_for_table(table_name_or_ref, info)
         end
 
-        # Get all entries from the ETS table
-        entries = :ets.tab2list(table_name_or_ref)
+        with :ok <- Utils.ensure_available(module_name) do
+          # Get all entries from the ETS table
+          entries = :ets.tab2list(table_name_or_ref)
 
-        # Generate the module
-        module_alias = Utils.create_module(module_name, entries, "ETS table")
+          # Generate the module
+          module_alias = Utils.create_module(module_name, entries, "ETS table")
 
-        {:ok, module_alias}
+          {:ok, module_alias}
+        end
     end
   end
 

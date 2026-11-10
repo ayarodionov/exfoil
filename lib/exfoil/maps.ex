@@ -89,9 +89,11 @@ defmodule Exfoil.Maps do
     ]
 
     # Generate the module
-    module_alias = Utils.create_module(normalized_module_name, entries, "map", extra_functions)
+    with :ok <- Utils.ensure_available(normalized_module_name) do
+      module_alias = Utils.create_module(normalized_module_name, entries, "map", extra_functions)
 
-    {:ok, module_alias}
+      {:ok, module_alias}
+    end
   end
 
   @doc """
