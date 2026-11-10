@@ -86,13 +86,15 @@ defmodule Exfoil.Dets do
           default_module_name(table_name)
         end
 
-        # Get all entries from the DETS table
-        entries = :dets.match_object(table_name, :_)
+        with :ok <- Utils.ensure_available(module_name) do
+          # Get all entries from the DETS table
+          entries = :dets.match_object(table_name, :_)
 
-        # Generate the module
-        module_alias = Utils.create_module(module_name, entries, "DETS table")
+          # Generate the module
+          module_alias = Utils.create_module(module_name, entries, "DETS table")
 
-        {:ok, module_alias}
+          {:ok, module_alias}
+        end
     end
   end
 

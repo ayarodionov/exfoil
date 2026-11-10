@@ -14,6 +14,8 @@ Exfoil is an Elixir library that converts ETS (Erlang Term Storage) table entrie
 - **Flexible Configuration**: Custom module names
 - **Helper Functions**: Built-in functions to list keys, get all entries, and count items
 - **Error Handling**: Graceful handling of missing keys and non-existent tables
+- **Safe Module Names**: Converting onto the name of an existing module that Exfoil did not generate (for example a table named `:string`) returns `{:error, :module_exists}` instead of replacing it. Re-converting a module Exfoil generated earlier refreshes it
+- **Any Key**: Keys may be any term that can be written in source, including tuples of three or more elements, the empty tuple and maps (map keys match exactly). Pids, references and functions cannot be used as keys
 
 ## Examples
 
